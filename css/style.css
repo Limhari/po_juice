@@ -367,12 +367,12 @@
 #wrap #main #section4 .wrap .gap {margin:0;}
 #wrap #main #section4 .wrap .gap .container {width:100%;}
 #wrap #main #section4 .wrap .gap .container > ul {width:100%;position:relative;}
-#wrap #main #section4 .wrap .gap .container > ul > li {opacity:0;float:left;width:33.33333%;height:685px;/* background:url(../img/single-project-page-01-img5.jpg) no-repeat 50% 50%;background-size:cover; */}
+#wrap #main #section4 .wrap .gap .container > ul > li {opacity:0;float:left;width:33.33333%;height:685px;/* background:url(../img/single-project-page-01-img5.jpg) no-repeat 50% 50%;background-size:cover; *//* overflow:hidden; */}
 /* #wrap #main #section4 .wrap .gap .container ul li:nth-child(1)  {background-image:url(../img/single-project-page-01-img5.jpg);}
 #wrap #main #section4 .wrap .gap .container ul li:nth-child(2)  {background-image:url(../img/single-project-page-01-img4.jpg);}
 #wrap #main #section4 .wrap .gap .container ul li:nth-child(3)  {background-image:url(../img/single-project-page-01-img6.jpg);} */
 
-#wrap #main #section4 .wrap .gap .container > ul > li .content-gap {margin:0;}
+#wrap #main #section4 .wrap .gap .container > ul > li .content-gap {margin:0;width:100.5%;}
 #wrap #main #section4 .wrap .gap .container > ul > li .content-gap .content-wrap {width:100%;position:relative;}
 
 #wrap #main #section4 .wrap .gap .container > ul > li .content-gap .content-wrap .front-box {z-index:2;position:relative;width:100%;transform:perspective(800px) rotateY(0deg);transition:all 1s;}
