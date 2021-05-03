@@ -1131,57 +1131,68 @@
         modal3dGalleryFn:function(){
 
 
-            var $winW = $(window).innerWidth();
-            var $winH = $(window).innerHeight();
+           
 
+            var $modal3dGallery    = $('#modal3dGallery');
             var $prevBtn   = $('#modal3dGallery .prev-btn');
             var $nextBtn   = $('#modal3dGallery .next-btn');            
+            var $close   = $('#modal3dGallery .close');            
             
             var $slideWrap = $('#modal3dGallery .slide-wrap');
             var $slide     = $('#modal3dGallery .slide');
-            var slideW     = $('#modal3dGallery .slide').innerWidth();
 
+            var slideW     = 0.3125 * $(window).innerWidth();
 
             var cnt = 0;
             var n   = $('#modal3dGallery .slide').length;
             
-            var angle = 360/n;
-            
-            
+            var tz = 0;         
+            var angle = 360/n;        
             
 
-
-            var $slideWrap         = $('#modal3dGallery .slide-wrap');
             var $slideWrapW        = $('#modal3dGallery .slide-wrap').innerWidth();
             var $slideH            = $('#modal3dGallery .slide').innerHeight();
             var $wrap              = $('#modal3dGallery .wrap').innerWidth();
             var $wrapH             = $('#modal3dGallery .wrap').innerHeight();
 
        
-            var $w = 0.375 * $wrap;
+            var $w = 0.375 * $(window).innerWidth();
+            //var $w = 0.375 * $wrap;
             var $h = $w *0.5;
-            //$slideWrap.css({width:$w, height:$h});
-            var tz = 0;            
-            tz = Math.round( (slideW/2) / Math.tan( Math.PI / n ) ); 
 
-            // var $w2 = 0.1875 * $wrap;
-            // var $h2 = $w2 *0.5;
 
-            // var tz2 = 0;
-            // tz2 = Math.round( ($w2/2) / Math.tan( Math.PI / n ) ); 
 
+            function resizeFn(){
+
+                slideW    = 0.3125 * $(window).innerWidth();
+                //$w = 0.375 * $(window).innerWidth();
+                $slideWrap.css({width:slideW, height:slideW/2});
+                tz = Math.round( (slideW/2) / Math.tan( Math.PI / n ) ); 
+
+                $slide.each(function(idx){
+                    $slide.eq(idx).css({ transform: 'rotateY(calc(30deg*'+idx+'))  scale(1) translateZ('+tz+'px)'});        
+                });                
+                
+                mainSlideFn();          
+                        
+            }
+         
+
+            $(window).resize(function(){
+                resizeFn();
+            });
+            setTimeout(resizeFn(),10);
+
+            //mainSlideFn();
 
             function mainSlideFn(){
                 
-                
                 $slide.stop().animate({opacity:.5},0);
                 $slide.find('.slide-content').css({transform:'scale(1)'});
-                $slideWrap.css({transform: `perspective(${tz*1.3}px) translateZ(${-tz}px) rotateY( ${-angle*cnt}deg) ` });
-                //$slideWrap.css({transform: `perspective(${tz2*1.3}px) translateZ(${-tz2}px) rotateY( ${-angle*cnt}deg) ` });
-
+                $slideWrap.css({ transform: ' perspective('+ (tz*1.3) +'px) translateZ(' + (-tz) +'px) rotateY(' + (-angle*cnt) + 'deg ) ' });
 
                 $slide.eq(cnt%n).stop().animate({opacity:1},1000,function(){
-                    $(this).find('.slide-content').css({/* transform:'scale(1.2)', */transition:'all 1s'});
+                    $(this).find('.slide-content').css({transform:'scale(1.1)',transition:'all 1s'});
                 });                  
                 
             }
@@ -1209,98 +1220,14 @@
                 }
             });           
 
-                   
+            $close.on({
+                click:function(){
+                    $modal3dGallery.removeClass('addShow');  
+                }
+            });                   
 
 
-            function resizeFn(){
-
-                $winW = $(window).innerWidth();
-                //$winH = $(window).innerHeight();
-                //$wrapH              = $('#modal3dGallery .wrap').innerHeight();      
-
-                //$slideWrapW        = $('#modal3dGallery .slide-wrap').innerWidth();
-                //$slideH            = $('#modal3dGallery .slide').innerHeight();
-                $wrap              = $('#modal3dGallery .wrap').innerWidth();            
-                slideW = $('#modal3dGallery .slide').width();
-
-                $w = 0.375 * $wrap;
-                $h = $w *0.5;                
-                $slideWrap.css({width:$w, height:$h});
-
-                tz = 0;            
-                tz = Math.round( (slideW/2) / Math.tan( Math.PI / n ) ); 
-
-
-
-                    $slide.eq(0).css({transform:`rotateY(calc(180deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(1).css({transform:`rotateY(calc(210deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(2).css({transform:`rotateY(calc(240deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(3).css({transform:`rotateY(calc(270deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(4).css({transform:`rotateY(calc(300deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(5).css({transform:`rotateY(calc(330deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(6).css({transform:`rotateY(calc(0deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(7).css({transform:`rotateY(calc(30deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(8).css({transform:`rotateY(calc(60deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(9).css({transform:`rotateY(calc(90deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(10).css({transform:`rotateY(calc(120deg)) translateZ(${-tz}px) scale(1)`});
-                    $slide.eq(11).css({transform:`rotateY(calc(150deg)) translateZ(${-tz}px) scale(1)`});
-                
-                // $w2 = 0.1875 * $wrap;
-                // $h2 = $w2 *0.5;
-                // $slideWrap.css({width:$w2, height:$h2});
-
-                // tz2 = 0;
-                // tz2 = Math.round( ($w2/2) / Math.tan( Math.PI / n ) ); 
-    
-
-                // $slideWrap.css({transform: `perspective(${tz*1.3}px) translateZ(${-tz}px) rotateY( ${-angle*cnt}deg) ` }); //600
-                //$slideWrap.css({transform: `perspective(${560*1.3}px) translateZ(${-560}px) rotateY( ${-angle*cnt}deg) ` }); //300
-                //$slideWrap.css({transform: `perspective(${tz2*1.3}px) translateZ(${-tz2}px) rotateY( ${-angle*cnt}deg) ` }); //300
-
-                console.log('w',$w);
-                console.log('h',$h);
-                console.log('tz',tz);
-
-
-
-
-
-
-                // if( $winW < 1420){
-
-                //     //$winW              = $(window).innerWidth();
-                //     $slideWrapW        = $('#modal3dGallery .slide-wrap').innerWidth();
-                //     $slideH            = $('#modal3dGallery .slide').innerHeight();
-
-                //     $wrap   = $('#modal3dGallery .wrap').innerWidth();
-                //     $w = 0.375 * $wrap;
-                //     $h = $w *0.5;    
-                //     $slideWrap.css({width:$w, height:$h});
-
-                //     tz2 =  -1088;
-                //     tz2 = Math.round( ($w/2) / Math.tan( Math.PI / n ) ); 
-
-
-                //     //console.log('w',$w);
-                //     //console.log('h',$h);
-                //     //console.log('tz2',tz2);
-
-                //     $slideWrap.css({transform: `perspective(${tz2*1.3}px) translateZ(${-tz2}px) rotateY( ${-angle*cnt}deg) ` });
-                                 
-                // }
-                // else{
-                //      $slideWrap.css({transform: `perspective(${tz*1.3}px) translateZ(${-tz}px) rotateY( ${-angle*cnt}deg) ` });
-                // }
-                
-                mainSlideFn();          
-                        
-            }
-         
-
-            $(window).resize(function(){
-                resizeFn();
-            });
-            setTimeout(resizeFn,10);
+          
             
 
 
